@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: Slack Web API
+security:
+  - BasicAuth: []
+  - ApiKeyAuth: []
+paths:
+  '/api/chat.postMessage':
+    post:
+      tags:
+        - Chat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                text:
+                  type: string
+                attachments:
+                  type: array
+                  items:
+                    type: object                
+                blocks:
+                  type: array
+                  items:
+                    type: object            
+                thread_ts:
+                  type: string
+              required:
+                - channel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                  ts:
+                    type: string
+                  message:
+                    type: object
+  "/api/files.upload":
+    post:
+      tags:
+        - "FileUpload"
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channels:
+                  type: string
+                initial_comment:
+                  type: string
+                thread_ts:
+                  type: string
+                title:
+                  type: string
+                filename:
+                  type: string
+                content:
+                  type: string
+              required:
+                - content
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  file:
+                    type: object
